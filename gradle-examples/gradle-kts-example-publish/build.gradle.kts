@@ -20,7 +20,7 @@ allprojects {
     status = "Integration"
 
     repositories {
-        maven("http://127.0.0.1:8081/artifactory/libs-release")
+        maven("http://10.160.0.29:8082/artifactory/libs-release/")
     }
 }
 
