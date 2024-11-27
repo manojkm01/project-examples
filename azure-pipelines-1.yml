@@ -1,0 +1,30 @@
+# Gradle
+# Build your Java project and run tests with Gradle using a Gradle wrapper script.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: JFrogToolsInstaller@1
+  inputs:
+    artifactoryConnection: 'Manoj'
+    cliInstallationRepo: 'jfrog-cli-v2'
+    installExtractors: true
+    extractorsInstallationRepo: 'extractors'
+- task: JFrogGradle@1
+  inputs:
+    gradleBuildFile: 'build.gradle.kts'
+    options: '-d'
+    tasks: 'artifactoryPublish'
+    artifactoryResolverService: 'Manoj'
+    sourceRepo: 'dinesh-libs-release'
+    artifactoryDeployerService: 'Manoj'
+    targetRepo: 'dinesh-libs-release-local'
+    usesPlugin: true
+    useWrapper: true
+    javaHomeOption: 'JDKVersion'
