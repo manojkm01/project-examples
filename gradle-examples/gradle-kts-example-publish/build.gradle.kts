@@ -20,7 +20,7 @@ allprojects {
     status = "Integration"
 
     repositories {
-        maven("http://10.160.0.29:8082/artifactory/libs-release/")
+        maven("http://10.160.0.29:8082/artifactory/manoj-virtual/")
     }
 }
 
@@ -87,7 +87,7 @@ configure<org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention> {
     setContextUrl("http://127.0.0.1:8081/artifactory")
     publish {
         repository {
-            setRepoKey("libs-snapshot-local") // The Artifactory repository key to publish to
+            setRepoKey("manoj-local") // The Artifactory repository key to publish to
             setUsername(providers.gradleProperty("artifactory_user").getOrNull()) // The publisher user name
             setPassword(providers.gradleProperty("artifactory_password").getOrNull()) // The publisher password
             // This is an optional section for configuring Ivy publication (when publishIvy = true).
