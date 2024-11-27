@@ -24,9 +24,9 @@ steps:
     options: '-d'
     tasks: 'artifactoryPublish'
     artifactoryResolverService: 'Manoj'
-    sourceRepo: 'dinesh-libs-release'
+    sourceRepo: 'manoj-virtual'
     artifactoryDeployerService: 'Manoj'
-    targetRepo: 'dinesh-libs-release-local'
+    targetRepo: 'manoj-local'
     usesPlugin: true
     useWrapper: true
     javaHomeOption: 'JDKVersion'
