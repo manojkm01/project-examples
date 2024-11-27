@@ -6,7 +6,7 @@
 trigger:
 - master
 
-pool: my-local-computer
+pool: my-personal-computer
 
 steps:
 - task: CmdLine@2
