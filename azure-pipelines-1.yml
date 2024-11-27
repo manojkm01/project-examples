@@ -6,10 +6,12 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+pool: my-local-computer
 
 steps:
+- task: CmdLine@2
+  inputs:
+    script: 'chmod 777 gradlew'
 - task: JFrogToolsInstaller@1
   inputs:
     artifactoryConnection: 'Manoj'
