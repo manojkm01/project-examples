@@ -6,22 +6,23 @@
 trigger:
 - master
 
-pool: my-personal-computer
+pool:
+  vmImage: ubuntu-latest
 
 steps:
 - task: CmdLine@2
   inputs:
     script: 'chmod 777 gradlew'
-- task: JFrogToolsInstaller@1
-  inputs:
-    artifactoryConnection: 'Manoj'
-    cliInstallationRepo: 'jfrog-cli-v2'
-    installExtractors: true
-    extractorsInstallationRepo: 'extractors'
+# - task: JFrogToolsInstaller@1
+#   inputs:
+#     artifactoryConnection: 'Manoj'
+#     cliInstallationRepo: 'jfrog-cli-v2'
+#     installExtractors: true
+#     extractorsInstallationRepo: 'extractors'
 - task: JFrogGradle@1
   inputs:
     gradleBuildFile: 'build.gradle.kts'
-    options: '-d'
+    # options: '-d'
     tasks: 'artifactoryPublish'
     artifactoryResolverService: 'Manoj'
     sourceRepo: 'manoj-virtual'
