@@ -1,14 +1,4 @@
-# Maven
-- task: ArtifactoryMaven@2
-  inputs:
-    mavenPomFile: 'maven-examples/maven-example/pom.xml'
-    goals: 'install'
-    artifactoryResolverService: 'hts2'
-    targetResolveReleaseRepo: 'ganavik-libs-release'
-    targetResolveSnapshotRepo: 'ganavik-libs-snapshot'
-    artifactoryDeployService: 'hts2'
-    targetDeployReleaseRepo: 'ganavik-promote-libs-release'
-    targetDeploySnapshotRepo: 'ganavik-promote-libs-snapshot'
+
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -20,6 +10,18 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+# Maven
+- task: ArtifactoryMaven@2
+  inputs:
+    mavenPomFile: 'maven-examples/maven-example/pom.xml'
+    goals: 'install'
+    artifactoryResolverService: 'hts2'
+    targetResolveReleaseRepo: 'ganavik-libs-release'
+    targetResolveSnapshotRepo: 'ganavik-libs-snapshot'
+    artifactoryDeployService: 'hts2'
+    targetDeployReleaseRepo: 'ganavik-promote-libs-release'
+    targetDeploySnapshotRepo: 'ganavik-promote-libs-snapshot'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -30,3 +32,5 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+
