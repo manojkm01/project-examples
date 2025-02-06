@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  working-dir: '/maven-examples/maven-example/'
+  working-dir: '$(Build.SourcesDirectory)/maven-examples/maven-example/'
 
 steps:
 
