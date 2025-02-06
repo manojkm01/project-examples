@@ -16,7 +16,7 @@ steps:
     artifactoryResolverService: 'manoj'
     targetResolveReleaseRepo: 'ganavik-libs-release'
     targetResolveSnapshotRepo: 'ganavik-libs-snapshot'
-    artifactoryDeployService: 'hts2'
+    artifactoryDeployService: 'manoj'
     targetDeployReleaseRepo: 'ganavik-promote-libs-release'
     targetDeploySnapshotRepo: 'ganavik-promote-libs-snapshot'
 - task: Gradle@3
