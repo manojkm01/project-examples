@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  working-dir: 'maven-examples/maven-example/'
+  working-dir: '$(Build.SourcesDirectory)/maven-examples/maven-example/'
 
 steps:
 
@@ -29,6 +29,14 @@ steps:
     artifactoryDeployService: 'manoj'
     targetDeployReleaseRepo: 'ganavik-promote-libs-release'
     targetDeploySnapshotRepo: 'ganavik-promote-libs-snapshot'
+    
+- task: CmdLine@2
+  inputs:
+    script: |
+      export MAVEN_OPTS="-Dmaven.repo.local=$(Build.SourcesDirectory)/.m2/repository"  # Optional: Set custom Maven repo directory
+      mvn clean install -f $(working-dir)/pom.xml  # Run Maven build in the correct directory
+  displayName: 'Run Maven Build'
+
 # - task: Gradle@3
 #   inputs:
 #     gradleWrapperFile: 'gradlew'  # Path to your Gradle wrapper
