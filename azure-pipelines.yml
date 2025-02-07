@@ -9,8 +9,8 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  working-dir: '/home/vsts/work/1/s/project-examples/maven-examples/maven-example/'
+#variables:
+#  working-dir: '/home/vsts/work/1/s/project-examples/maven-examples/maven-example/'
 
 steps:
 - task: CmdLine@2
@@ -18,9 +18,9 @@ steps:
     script: 'pwd'
 
 
-- task: CmdLine@2
-  inputs:
-    workingDirectory: /home/vsts/work/1/s/project-examples/maven-examples/maven-example/
+#- task: CmdLine@2
+#  inputs:
+#    workingDirectory: /home/vsts/work/1/s/project-examples/maven-examples/maven-example/
 
 
 
