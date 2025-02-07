@@ -13,10 +13,16 @@ variables:
   working-dir: 'project-examples/maven-examples/maven-example/'
 
 steps:
+- task: CmdLine@2
+  inputs:
+    script: 'pwd'
+
 
 - task: CmdLine@2
   inputs:
     workingDirectory: project-examples/maven-examples/maven-example/
+
+
 
 
 - task: ArtifactoryMaven@2
