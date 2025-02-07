@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  working-dir: 'project-examples/maven-examples/maven-example/'
+  working-dir: '/home/vsts/work/1/s/project-examples/maven-examples/maven-example/'
 
 steps:
 - task: CmdLine@2
@@ -20,7 +20,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    workingDirectory: project-examples/maven-examples/maven-example/
+    workingDirectory: /home/vsts/work/1/s/project-examples/maven-examples/maven-example/
 
 
 
