@@ -10,18 +10,18 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  working-dir: '$(Build.SourcesDirectory)/maven-examples/maven-example/'
+  working-dir: 'project-examples/maven-examples/maven-example/'
 
 steps:
 
 - task: CmdLine@2
   inputs:
-    workingDirectory: $(working-dir)
+    workingDirectory: project-examples/maven-examples/maven-example/
 
 
 - task: ArtifactoryMaven@2
   inputs:
-    mavenPomFile: '$(working-dir)/pom.xml'
+    mavenPomFile: 'project-examples/maven-examples/maven-example/pom.xml'
     goals: 'install'
     artifactoryResolverService: 'manoj'
     targetResolveReleaseRepo: 'ganavik-libs-release'
