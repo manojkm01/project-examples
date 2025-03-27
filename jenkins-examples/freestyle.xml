@@ -1,0 +1,204 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?><maven2-moduleset plugin="maven-plugin@3.23">
+  <actions/>
+  <description>It assembles and releases an artifact for the development environment.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.13">
+      <siteName>https://jira-test.corp.knorr-bremse.com/</siteName>
+    </hudson.plugins.jira.JiraProjectProperty>
+    <hudson.security.AuthorizationMatrixProperty>
+      <inheritanceStrategy class="org.jenkinsci.plugins.matrixauth.inheritance.InheritParentStrategy"/>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>100</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@2.5.2">
+      <doNotScan>false</doNotScan>
+    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@332.va_1ee476d8f6d">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@2.14">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories class="java.util.concurrent.CopyOnWriteArrayList"/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <limitOneJobWithMatchingParams>false</limitOneJobWithMatchingParams>
+      <paramsToUseForLimit/>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+    
+  </properties>
+  <scm class="hudson.scm.SubversionSCM" plugin="subversion@1256.vee91953217b_6">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>https://mucs7170.corp.knorr-bremse.com/Projects.svn/ProcessDesign/trunkImplementation/Java/MKE-Distribution-NG/development</remote>
+        <credentialsId>9a64d4fd-8313-452b-a1d0-b2641969531f</credentialsId>
+        <local>.</local>
+        <depthOption>infinity</depthOption>
+        <ignoreExternalsOption>false</ignoreExternalsOption>
+        <cancelProcessOnExternalsFail>false</cancelProcessOnExternalsFail>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions/>
+    <includedRegions/>
+    <excludedUsers/>
+    <excludedRevprop/>
+    <excludedCommitMessages/>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateWithRevertUpdater"/>
+    <ignoreDirPropChanges>false</ignoreDirPropChanges>
+    <filterChangelog>false</filterChangelog>
+    <quietOperation>false</quietOperation>
+  </scm>
+  <quietPeriod>60</quietPeriod>
+  <assignedNode>mke</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>true</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>adoptjdk-17.0.11.9</jdk>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>com.knorr-bremse.mke.distribution-ng</groupId>
+    <artifactId>development</artifactId>
+  </rootModule>
+  <goals>-U package deploy -X -Dmaven.deploy.skip=true -DdistributionRoot=https://artifactory-test-esc.corp.knorr-bremse.com:8481/artifactory -Daether.metadataResolver.threads=1</goals>
+  <defaultGoals>package</defaultGoals>
+  <mavenName>maven_3.9.6</mavenName>
+  <mavenOpts>-Xms14g -Xmx14g -Dorg.slf4j.simpleLogger.showDateTime=true "-Dorg.slf4j.simpleLogger.dateTimeFormat=yyyy-MM-dd HH:mm:ss.SSS" -Djava.io.tmpdir=${WORKSPACE}/tmp</mavenOpts>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+  <archivingDisabled>false</archivingDisabled>
+  <siteArchivingDisabled>false</siteArchivingDisabled>
+  <fingerprintingDisabled>false</fingerprintingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+  <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+  <reporters/>
+  <publishers>
+    <org.jfrog.hudson.ArtifactoryRedeployPublisher plugin="artifactory@4.0.6">
+      <evenIfUnstable>false</evenIfUnstable>
+      <deployerDetails>
+        <artifactoryName>artifactory-test</artifactoryName>
+        <artifactoryUrl>https://artifactory-test-esc.corp.knorr-bremse.com/artifactory</artifactoryUrl>
+        <deployReleaseRepository>
+          <keyFromText>mke-releases</keyFromText>
+          <keyFromSelect>mke-releases</keyFromSelect>
+          <dynamicMode>true</dynamicMode>
+        </deployReleaseRepository>
+        <deploySnapshotRepository>
+          <keyFromText>mke-snapshots</keyFromText>
+          <keyFromSelect>mke-snapshots</keyFromSelect>
+          <dynamicMode>true</dynamicMode>
+        </deploySnapshotRepository>
+        <stagingPlugin>
+          <pluginName>None</pluginName>
+        </stagingPlugin>
+        <userPluginKey>None</userPluginKey>
+      </deployerDetails>
+      <deployArtifacts>true</deployArtifacts>
+      <artifactDeploymentPatterns>
+        <includePatterns/>
+        <excludePatterns/>
+      </artifactDeploymentPatterns>
+      <deployerCredentialsConfig>
+        <credentialsId/>
+        <overridingCredentials>false</overridingCredentials>
+        <ignoreCredentialPluginDisabled>false</ignoreCredentialPluginDisabled>
+      </deployerCredentialsConfig>
+      <includeEnvVars>false</includeEnvVars>
+      <envVarsPatterns>
+        <includePatterns/>
+        <excludePatterns>*password*,*secret*</excludePatterns>
+      </envVarsPatterns>
+      <passIdentifiedDownstream>false</passIdentifiedDownstream>
+      <discardOldBuilds>false</discardOldBuilds>
+      <discardBuildArtifacts>true</discardBuildArtifacts>
+      <asyncBuildRetention>false</asyncBuildRetention>
+      <deploymentProperties/>
+      <enableIssueTrackerIntegration>false</enableIssueTrackerIntegration>
+      <allowPromotionOfNonStagedBuilds>false</allowPromotionOfNonStagedBuilds>
+      <filterExcludedArtifactsFromBuild>true</filterExcludedArtifactsFromBuild>
+      <recordAllDependencies>false</recordAllDependencies>
+      <defaultPromotionTargetRepository/>
+      <deployBuildInfo>true</deployBuildInfo>
+      <aggregationBuildStatus>Released</aggregationBuildStatus>
+      <aggregateBuildIssues>false</aggregateBuildIssues>
+      <customBuildName/>
+      <overrideBuildName>false</overrideBuildName>
+      <project/>
+    </org.jfrog.hudson.ArtifactoryRedeployPublisher>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper plugin="credentials-binding@677.vdc9d38cb_254d">
+      <bindings>
+        <org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordMultiBinding>
+          <credentialsId>artifactory-buildjfrog</credentialsId>
+          <usernameVariable>artifactoryUser</usernameVariable>
+          <passwordVariable>artifactoryUserPass</passwordVariable>
+        </org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordMultiBinding>
+      </bindings>
+    </org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.27"/>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.32">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>30</timeoutMinutes>
+      </strategy>
+      <operationList>
+        <hudson.plugins.build__timeout.operations.WriteDescriptionOperation>
+          <description>Aborted due to timeout</description>
+        </hudson.plugins.build__timeout.operations.WriteDescriptionOperation>
+        <hudson.plugins.build__timeout.operations.AbortOperation/>
+      </operationList>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
+  <prebuilders>
+    <hudson.tasks.BatchFile>
+      <command>@echo off&#13;
+REM -Djava.io.tmpdir=${WORKSPACE}/tmp&#13;
+IF NOT EXIST %WORKSPACE%\tmp GOTO NOTMPDIR&#13;
+del /s /q %WORKSPACE%\tmp&#13;
+GOTO END&#13;
+:NOTMPDIR&#13;
+mkdir %WORKSPACE%\tmp&#13;
+:END</command>
+      <configuredLocalRules/>
+    </hudson.tasks.BatchFile>
+    <hudson.plugins.powershell.PowerShell plugin="powershell@2.1">
+      <command>(Get-Content pom.xml) -replace 'artifactory-esc', 'artifactory-test-esc' | Set-Content pom.xml
+(Get-Content pom.xml) -replace '{{artifactoryUser}}', '${artifactoryUser}' | Set-Content pom.xml
+(Get-Content pom.xml) -replace '{{artifactoryUserPass}}', '${artifactoryUserPass}' | Set-Content pom.xml
+  
+gci env:* | sort-object name
+Get-Content Env:buildInfoConfig.propertiesFile
+dir X:\ws\MKE-Distribution-NG_development_ext-minksb@tmp\artifactory\
+dir X:\ws\MKE-Distribution-NG_development_ext-minksb@tmp\
+  
+ </command>
+      <configuredLocalRules/>
+      <useProfile>true</useProfile>
+      <stopOnError>true</stopOnError>
+    </hudson.plugins.powershell.PowerShell>
+  </prebuilders>
+  <postbuilders/>
+  <runPostStepsIfResult>
+    <name>SUCCESS</name>
+    <ordinal>0</ordinal>
+    <color>BLUE</color>
+    <completeBuild>true</completeBuild>
+  </runPostStepsIfResult>
+</maven2-moduleset>
